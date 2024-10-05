@@ -1,0 +1,33 @@
+
+ <app-header [showSearch]="false"></app-header>
+
+ <div class="container">
+   <mat-progress-spinner mode="indeterminate" *ngIf="(isLoading$ | async)" color="primary"></mat-progress-spinner>
+
+   <ng-container *ngIf="user$ | async as user; else loading">
+     <mat-card *ngIf="user">
+       <img mat-card-image src="{{ user.avatar }}" alt="User Avatar">
+
+       <mat-card-header>
+         <mat-card-title>{{ user.first_name }} {{ user.last_name }}</mat-card-title>
+         <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
+       </mat-card-header>
+       <mat-card-content>
+         <p>ID: {{ user.id }}</p>
+
+         <div class="actions">
+           <button mat-raised-button color="primary" class="contact-me">
+             Contact Me
+           </button>
+           <button mat-raised-button color="primary" class="back" (click)="onBack()">
+             Back
+           </button>
+         </div>
+       </mat-card-content>
+     </mat-card>
+   </ng-container>
+
+   <ng-template #loading>
+     <p>Loading user details...</p>
+   </ng-template>
+ </div>
